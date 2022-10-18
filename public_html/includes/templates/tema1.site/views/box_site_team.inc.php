@@ -9,7 +9,7 @@
                         <?php
                         foreach ($team as $key => $dj) {
                             echo '<li><div class="thumb-carousel"><div class="thumbnail clearfix"><a href="#">' . PHP_EOL;
-                            echo '<figure><img src="' . document::href_link($dj['image']) . '" width="200" height="200"></figure>' . PHP_EOL;
+                            echo '<figure><img src="' . document::href_link($dj['image']) . '" style="width: 178px; height: 178px;"></figure>' . PHP_EOL;
                             echo '<div class="caption">' . $dj['name'] . '</div>' . PHP_EOL;
                             echo '</a></div></div></li>' . PHP_EOL;
                         }

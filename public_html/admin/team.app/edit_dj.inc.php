@@ -31,7 +31,6 @@ if (isset($_POST['save'])) {
     $fields = [
       'status',
       'type',
-      'languages',
       'name',
       'caption',
       'link',
@@ -104,8 +103,8 @@ if (isset($_POST['delete'])) {
         <label><?php echo language::translate('xmexpi_select_vip_dj', 'VIP ILI Ekipa'); ?></label>
         <?php
         $options = array(
-          array(language::translate('xmexpi_vip', 'VIP'), '1'),
-          array(language::translate('xmexpi_dj', 'Tim Ekipa'), '2'),
+          array(language::translate('xmexpi_vip', 'VIP'), '2'),
+          array(language::translate('xmexpi_dj', 'Tim Ekipa'), '1'),
         );
         echo functions::form_draw_select_field('type', $options, true);
         ?>

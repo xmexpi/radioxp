@@ -70,6 +70,7 @@ class ent_team
             "update " . DB_TABLE_PREFIX . "team
         set
           status = " . (int)$this->data['status'] . ",
+          type = " . (int)$this->data['type'] . ",
           name = '" . database::input($this->data['name']) . "',
           caption = '" . database::input($this->data['caption']) . "',
           image = '" . database::input($this->data['image']) . "',

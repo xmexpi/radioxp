@@ -15,7 +15,7 @@ $pages_query = database::query(
                                                   left join " . DB_TABLE_PAGES_INFO . " pi on (p.id = pi.page_id and pi.language_code = '" . database::input(language::$selected['code']) . "')
                                                   where status
                                                   and find_in_set('information', dock)
-                                                  order by p.priority, pi.title;"
+                                                  order by p.priority, pi.title LIMIT 4;"
 );
 while ($page = database::fetch($pages_query)) {
   $_page->snippets['pages'][$page['id']] = array(

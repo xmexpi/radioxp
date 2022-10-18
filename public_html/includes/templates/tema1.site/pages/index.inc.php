@@ -34,8 +34,8 @@
         </div>
       </div> -->
 
-      <h3>Latest Events <a href="#">news archive</a></h3>
-      <?php foreach ($pages as $page) echo '<div class="date1">' . substr($page['title'], 0, 70) . '</div><div>' . substr($page['content'], 0, 300) . '</br><a href="' . htmlspecialchars($page['link']) . '">Procitaj Vise</a></div>' . PHP_EOL; ?>
+      <h3><?php echo language::translate('xmexpi_desavanja', 'Novosti'); ?></h3>
+      <?php foreach ($pages as $page) echo '<div class="date1">' . substr($page['title'], 0, 150) . '</div><div>' . substr($page['content'], 0, 300) . '</br><a href="' . htmlspecialchars($page['link']) . '">Procitaj Vise</a></div>' . PHP_EOL; ?>
 
 
     </div>
