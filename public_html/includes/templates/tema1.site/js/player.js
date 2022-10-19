@@ -45,8 +45,8 @@ function Pagina() {
             artistaAtual.className = 'animated flipInY text-capitalize';
             artistaAtual.innerHTML = artista;
 
-            // Atualizar o título do modal com a letra da música
-            document.getElementById('letraMusica').innerHTML = musica + ' - ' + artista;
+            // // Atualizar o título do modal com a letra da música
+            // document.getElementById('faixaAtual').innerHTML = musica + ' - ' + artista;
             // Removendo as classes de animação
             setTimeout(function() {
                 faixaAtual.className = 'text-uppercase';
@@ -59,13 +59,13 @@ function Pagina() {
     // Ažurirajte sliku naslovnice programa Player i Background
     this.atualizarCapa = function(musica, artista) {
         // Imagem padrão caso não encontre nenhuma na API do iTunes
-        var urlCapa = 'img/bg-capa.jpg';
+        var urlCapa = window._env.template.url + 'images/autodj.png';
 
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             // Seletores de onde alterar a imagem de capa do album
             var capaMusica = document.getElementById('capaAtual');
-            var capaBackground = document.getElementById('capaBg');
+         //   var capaBackground = document.getElementById('capaBg');
 
             // Buscar imagem da capa na API do iTunes
             if (this.readyState === 4 && this.status === 200) {
@@ -75,7 +75,7 @@ function Pagina() {
                 urlCapa = (artworkUrl100 != urlCapa) ? artworkUrl100.replace('100x100bb', '512x512bb') : urlCapa;
 
                 capaMusica.style.backgroundImage = 'url(' + urlCapa + ')';
-                capaBackground.style.backgroundImage = 'url(' + urlCapa + ')';
+              //  capaBackground.style.backgroundImage = 'url(' + urlCapa + ')';
 
                 if ('mediaSession' in navigator) {
                     navigator.mediaSession.metadata = new MediaMetadata({
@@ -112,34 +112,7 @@ function Pagina() {
         }
     }
     // Ažurira prikaz teksta
-    this.atualizarLetra = function(musica, artista) {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState === 4 && this.status === 200) {
-                var retorno = JSON.parse(this.responseText);
 
-                var botaoVerLetra = document.getElementsByClassName('ver-letra')[0];
-
-                if (retorno.type === 'exact' || retorno.type === 'aprox') {
-                    var letra = retorno.mus[0].text;
-
-                    document.getElementById('letra').innerHTML = letra.replace(/\n/g, '<br />');
-                    botaoVerLetra.style.opacity = "1";
-                    botaoVerLetra.setAttribute('data-toggle', 'modal');
-                } else {
-                    botaoVerLetra.style.opacity = "0.3";
-                    botaoVerLetra.removeAttribute('data-toggle');
-
-                    var modalLetra = document.getElementById('modalLetra');
-                    modalLetra.style.display = "none";
-                    modalLetra.setAttribute('aria-hidden', 'true');
-                    document.getElementsByClassName('modal-backdrop')[0].remove();
-                }
-            }
-        }
-        xhttp.open('GET', 'https://api.vagalume.com.br/search.php?apikey=' + API_KEY + '&art=' + artista + '&mus=' + musica, true);
-        xhttp.send()
-    }
 }
 
 var audio = new Audio(URL_STREAMING + '/;');
@@ -147,10 +120,8 @@ var audio = new Audio(URL_STREAMING + '/;');
 // Controla Playera
 function Player() {
     this.play = function() {
-        audio.play();
-
+        // audio.play();
         var volumePadrao = document.getElementById('volume').value;
-
         if (typeof(Storage) !== 'undefined') {
             if (localStorage.getItem('volume') !== null) {
                 audio.volume = intToDecimal(localStorage.getItem('volume'));
@@ -255,7 +226,7 @@ function pegarDadosStreaming() {
         if (this.readyState === 4 && this.status === 200) {
             var dados = JSON.parse(this.responseText);
             var pagina = new Pagina();
-            var musicaAtual = dados.faixa.replace('&apos;', '\'');
+            var musicaAtual = dados.faixa.replace('&amp;', '\'');
             musicaAtual = musicaAtual.replace('&amp;', '&');
             var artistaAtual = dados.artista.replace('&apos;', '\'');
             artistaAtual = artistaAtual.replace('&amp;', '&');
@@ -264,7 +235,7 @@ function pegarDadosStreaming() {
             if (document.getElementById('faixaAtual').innerHTML !== musicaAtual) {
                 pagina.atualizarCapa(musicaAtual, artistaAtual);
                 pagina.atualizarFaixaAtual(musicaAtual, artistaAtual);
-                pagina.atualizarLetra(musicaAtual, artistaAtual);
+              //  pagina.atualizarLetra(musicaAtual, artistaAtual);
             }
         }
     };
